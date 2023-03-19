@@ -86,9 +86,6 @@ uint8_t getFingerprintID() {
     display_cross();
     display_start_time = millis();
     buzzer_play_error();
-//    delay(1000);
-//    display_lock_state();
-//    cooldown_start_time = millis();
    
     return p;
   } else {
@@ -103,8 +100,7 @@ uint8_t getFingerprintID() {
   display_check();
   display_start_time = millis();
   buzzer_play_success();
-//  MQTT_publish_event();
-//  MQTT_publish_toggle();
+  mqtt_publish_valid_finger();
   cooldown_start_time = millis();
 
   return finger.fingerID;

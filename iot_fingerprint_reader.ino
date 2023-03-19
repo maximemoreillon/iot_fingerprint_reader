@@ -31,9 +31,6 @@
 
 #define COOLDOWN_DURATION 2000
 
-// TODO: use base topic
-#define MQTT_EVENTS_TOPIC "/fingerprint/events"
-
 #define BUZZER_CHANNEL 0
 #define BUZZER_RESOLUTION 8
 
@@ -52,31 +49,24 @@ void setup() {
 	Serial.begin(115200);
   Serial1.begin(57600, SERIAL_8N1, RX_PIN, TX_PIN);
 
+  display_setup();
   buzzer_init();
-  buzzer_play_success();
   fingerprint_init();
   iot_kernel.init();
-  display_setup();
+  
   
 }
 
 void loop() {
   iot_kernel.loop();
-
-//  wifi_connection_manager();
-//  MQTT_connection_manager();
   invert_display_periodically();
-
-  // While wifi connecting, show wifi connecting
-//  if(!wifi_connected()) display_wifi_connecting();
-
   display_reset();
 
-//  if(wifi_connected() && mqtt_connected()) {
-      if(millis() - cooldown_start_time > COOLDOWN_DURATION){
-        getFingerprintID();
-      }
-//  }
+  //  TODO: check if wifi and mqtt are connected before
+
+  if(millis() - cooldown_start_time > COOLDOWN_DURATION){
+    getFingerprintID();
+  }
 
 
 }

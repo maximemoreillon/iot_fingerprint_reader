@@ -10,22 +10,16 @@ void buzzer_init() {
 
 void buzzer_play_success(){
 
-  tone_custom(900,100);
   tone_custom(1300,100);
-  tone_custom(1500,500);
+  tone_custom(1500,300);
 
 }
 
-void buzzer_play_request_pending(){
-  tone_custom(1000,100);
-  delay(200);
-}
 
 void buzzer_play_error(){
 
-  tone_custom(300,50);
-  delay(50);
-  tone_custom(300,250);
+  tone_custom(600,100);
+  tone_custom(300,300);
   
 }
 
