@@ -17,9 +17,11 @@
 #define DEVICE_FIRMWARE_VERSION "0.0.1"
 
 // IO
-#define RX_PIN 5
+
+#define RX_PIN 13
 #define TX_PIN 16
-#define SDA_PIN 5
+// GPIO 5 is for the display
+#define SDA_PIN 5 
 #define SCL_PIN 4
 #define BUZZER_PIN 25
 
@@ -53,6 +55,8 @@ void setup() {
   buzzer_init();
   fingerprint_init();
   iot_kernel.init();
+  mqtt_config();
+
   
   
 }
