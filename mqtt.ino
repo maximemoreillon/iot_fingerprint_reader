@@ -26,37 +26,30 @@ void mqtt_message_callback(char* topic, byte* payload, unsigned int payload_leng
     char* command = strdup(inbound_JSON_message["state"]);
 
     if( strcmp(strlwr(command), "locked") == 0 ) {
-      if(iot_kernel.device_state != "locked") {
+      if(lock_state != "locked") {
         display_locked();
         display_start_time = millis();
         buzzer_play_notify();
+        lock_state = "locked";
       }
       else {
         // Nothing if already locked
       }
     }
     else if( strcmp(strlwr(command), "unlocked") == 0 ) {
-      if(iot_kernel.device_state != "unlocked") {
+      if(lock_state != "unlocked") {
         display_unlocked();
         display_start_time = millis();
         buzzer_play_notify();
+        lock_state = "unlocked";
       }
       else {
         // Nothing if already unlocked
       }
     }
-    else if( strcmp(strlwr(command), "toggle") == 0 ) {
-      if(iot_kernel.device_state == "locked") {
-        display_locked();
-        display_start_time = millis();
-        buzzer_play_notify();
-      }
-      else if(iot_kernel.device_state == "unlocked") {
-        display_unlocked();
-        display_start_time = millis();
-        buzzer_play_notify();
-      }
-    }
+
+
+    
 
     free(command);
 

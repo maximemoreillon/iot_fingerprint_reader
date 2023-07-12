@@ -14,7 +14,7 @@
 
 //Device info
 #define DEVICE_TYPE "fingerprint"
-#define DEVICE_FIRMWARE_VERSION "0.0.1"
+#define DEVICE_FIRMWARE_VERSION "0.0.2"
 
 // IO
 
@@ -46,6 +46,7 @@ Adafruit_Fingerprint finger = Adafruit_Fingerprint(&Serial1);
 // Global variables
 long cooldown_start_time = -COOLDOWN_DURATION;
 long display_start_time = DISPLAY_DURATION;
+String lock_state = "unknown";
 
 void setup() {
 	Serial.begin(115200);
