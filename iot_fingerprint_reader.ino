@@ -14,7 +14,7 @@
 
 //Device info
 #define DEVICE_TYPE "fingerprint"
-#define DEVICE_FIRMWARE_VERSION "0.0.6"
+#define DEVICE_FIRMWARE_VERSION "0.0.7"
 
 // IO
 
@@ -48,6 +48,7 @@ Adafruit_Fingerprint finger = Adafruit_Fingerprint(&Serial1);
 long cooldown_start_time = -COOLDOWN_DURATION;
 long display_start_time = DISPLAY_DURATION;
 String lock_state = "unknown";
+boolean fingerprintReaderOk = false;
 
 void setup() {
 	Serial.begin(115200);
