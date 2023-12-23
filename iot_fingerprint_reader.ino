@@ -63,11 +63,8 @@ void setup() {
 
 void loop() {
   iot_kernel.loop();
-  invert_display_periodically();
-  display_reset();
-  checkWifiConnection();
-
-  if(millis() - cooldown_start_time > COOLDOWN_DURATION && WiFi.status() == WL_CONNECTED){
+  handle_display();
+  if(WiFi.status() == WL_CONNECTED && millis() - cooldown_start_time > COOLDOWN_DURATION){
     getFingerprintID();
   }
 

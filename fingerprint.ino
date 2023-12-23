@@ -7,7 +7,7 @@ void fingerprint_init(){
   } else {
     Serial.println("Did not find fingerprint sensor :(");
     display_cross();
-    while (1) { delay(1); }
+    return;
   }
 
   Serial.println(F("Reading sensor parameters"));
@@ -29,6 +29,8 @@ void fingerprint_init(){
     Serial.println("Waiting for valid finger...");
       Serial.print("Sensor contains "); Serial.print(finger.templateCount); Serial.println(" templates");
   }
+
+  fingerprintReaderOk = true;
 
 }
 

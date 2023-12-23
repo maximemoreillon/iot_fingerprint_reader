@@ -33,7 +33,6 @@ void invert_display_periodically(){
 
 void display_nothing(){
   // Empty screen
-  
   display.clear();
   display.display();
 }
@@ -101,27 +100,57 @@ void display_image(const uint8_t* image_name){
   display.display();
 }
 
-
-
-void display_reset(){
-  static boolean displaying = false;
-  long now = millis();
-  if(now - display_start_time < DISPLAY_DURATION){
-    if(!displaying) displaying = true;
-  }
-  else {
-    if(displaying) {
-      displaying = false;
-      display_image(logo);
-    }
-  }
-}
-
-
 void display_message(String message){
   display.clear();
   display.setFont(ArialMT_Plain_16);
   display.setTextAlignment(TEXT_ALIGN_CENTER);
   display.drawString(DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2 - 8, message);
   display.display();
+}
+
+void handleTimeLimitedContent(){
+  // Displaying time limited content
+  static boolean displaying_time_limited_content = false;
+  long now = millis();
+  if(now - display_start_time < DISPLAY_DURATION){
+    if(!displaying_time_limited_content) displaying_time_limited_content = true;
+  }
+  else {
+    if(displaying_time_limited_content) {
+      displaying_time_limited_content = false;
+      // Display logo by default
+      display_image(logo);
+    }
+  }
+}
+
+
+void handle_display(){
+
+  invert_display_periodically();
+
+  //  If wifi not connected, show connecting animation
+  static int lastWifiStatus;
+  if(lastWifiStatus != WiFi.status()){
+    Serial.println("[Wifi] Wifi status changed");
+    if(WiFi.status() == WL_CONNECTED){
+      Serial.println("[Wifi] Wifi is now connected");
+      display_image(logo);
+    }
+    else if(WiFi.status() != WL_CONNECTED){
+      Serial.println("[Wifi] Wifi is now disconnected");
+    }
+
+    lastWifiStatus = WiFi.status();
+  }
+
+  if(WiFi.status() == WL_CONNECTED){
+    handleTimeLimitedContent();
+  }
+  
+  else {
+    display_wifi_connecting();
+  }
+  
+
 }
