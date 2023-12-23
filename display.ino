@@ -5,7 +5,7 @@ void display_setup() {
   display.setFont(ArialMT_Plain_16);
   display.setTextAlignment(TEXT_ALIGN_CENTER);
   display.setBrightness(100);
-  display.flipScreenVertically();
+//  display.flipScreenVertically();
   //display.invertDisplay();
   
   delay(10);

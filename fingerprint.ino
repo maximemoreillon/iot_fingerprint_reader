@@ -1,10 +1,12 @@
 void fingerprint_init(){
   finger.begin(57600);
   delay(5);
+  
   if (finger.verifyPassword()) {
     Serial.println("Found fingerprint sensor!");
   } else {
     Serial.println("Did not find fingerprint sensor :(");
+    display_cross();
     while (1) { delay(1); }
   }
 
@@ -27,6 +29,7 @@ void fingerprint_init(){
     Serial.println("Waiting for valid finger...");
       Serial.print("Sensor contains "); Serial.print(finger.templateCount); Serial.println(" templates");
   }
+
 }
 
 

@@ -14,7 +14,7 @@
 
 //Device info
 #define DEVICE_TYPE "fingerprint"
-#define DEVICE_FIRMWARE_VERSION "0.0.2"
+#define DEVICE_FIRMWARE_VERSION "0.0.6"
 
 // IO
 
@@ -35,6 +35,7 @@
 
 #define BUZZER_CHANNEL 0
 #define BUZZER_RESOLUTION 8
+#define BUZZER_DUTY 100
 
 
 
@@ -57,19 +58,15 @@ void setup() {
   fingerprint_init();
   iot_kernel.init();
   mqtt_config();
-
-  
-  
 }
 
 void loop() {
   iot_kernel.loop();
   invert_display_periodically();
   display_reset();
+  checkWifiConnection();
 
-  //  TODO: check if wifi and mqtt are connected before
-
-  if(millis() - cooldown_start_time > COOLDOWN_DURATION){
+  if(millis() - cooldown_start_time > COOLDOWN_DURATION && WiFi.status() == WL_CONNECTED){
     getFingerprintID();
   }
 

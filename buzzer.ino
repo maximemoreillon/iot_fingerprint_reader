@@ -26,7 +26,7 @@ void buzzer_play_notify(){
 
 void tone_custom(int freq, int duration){
   ledcWriteTone(BUZZER_CHANNEL, freq);
-  ledcWrite(BUZZER_CHANNEL, 125);
+  ledcWrite(BUZZER_CHANNEL, BUZZER_DUTY);
   delay(duration);
   ledcWrite(BUZZER_CHANNEL, 0);
 }
